@@ -58,8 +58,9 @@ Modern LLM servers solve this through:
 2. **Batching** - Process multiple users on one GPU call
 3. **Smart Scheduling** - Maximize throughput while maintaining low latency
 
-[YOUR WORDS: Why did you want to learn this? What problem were you trying to understand?]
+
 This project aligns with my goals in AI infra and I needed to understand LLM inference at scale and how GPUs are able to process thousands of requests concurrently.
+
 ---
 
 ## Key Concepts
@@ -110,7 +111,6 @@ Generate token 2: Process [token2] + reuse all previous cache
 This separation is important mainly because of two reasons
 1. You can't batch prefill & decode together because their input dimensions are different
 2. Prefill is far more computationally expensive than decode, so separating them allows the GPU to be used efficiently.
-[YOUR WORDS: Why is this separation important? What does it enable?]
 
 **Code structure:**
 ```python
@@ -171,8 +171,6 @@ Request B: [1, 1, 0, 0, 0, 0, 0]
 Request C: [1, 1, 1, 1, 1, 1, 1]
 ```
 Batching helps to properly utilize the GPU's capabilities of parallel processing, although it introduces some overhead due to e.g context switching, it allows for very efficient processing.
-
-[YOUR WORDS: What's the benefit of batching? What's the tradeoff?]
 
 **Continuous batching** means the batch composition changes dynamically:
 - New requests join the batch when they arrive
@@ -291,8 +289,6 @@ Client Request
 
 The KV Cache batching algorithm is quite challenging because of the way the model expects its inputs. We need to turn the format from `request` -> #`layer ` -> `(key, value)` to `layer` -> `batch` -> `(key, value)`
 
-[YOUR WORDS: Explain in your own words why this is challenging]
-
 ```python
 def batch_decode(requests):
     # 1. Find longest sequence
@@ -326,8 +322,6 @@ def batch_decode(requests):
 ## What I Learned
 
 ### Technical Insights
-
-[YOUR WORDS: Fill in what you learned from building this]
 
 **1. The cost of recomputation**
 The cost of recomputation is very expensive because of the full attention architecture, so various optimization methods must be made to improve performance. Without the KV cache, the cost of recomputing would grow exponentially
