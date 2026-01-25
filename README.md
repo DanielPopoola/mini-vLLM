@@ -341,8 +341,6 @@ This can be very challenging mainly because of the data structures huggingface c
 
 ### Challenges Overcome
 
-[YOUR WORDS: What was hard? How did you solve it?]
-
 **Challenge 1: Understanding KV cache structure**
 
 Understanding the KV cache layout and how it was nested. Solved it by tracing through each layer to figure out how to access & manipulate the cache.
